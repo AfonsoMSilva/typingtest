@@ -1,4 +1,4 @@
-#Typing Test
+# Typing Test
 
 ## TODO
 - Add start screen
