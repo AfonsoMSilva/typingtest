@@ -5,11 +5,18 @@ import random
 
 
 def start_screen(stdscr):
-	stdscr.clear()
-	stdscr.addstr("Welcome to the Speed Typing Test!")
-	stdscr.addstr("\nPress any key to begin!")
-	stdscr.refresh()
-	stdscr.getkey()
+    stdscr.clear()
+    stdscr.addstr('''
+ _____            _               _____         _
+|_   _|   _ _ __ (_)_ __   __ _  |_   _|__  ___| |_
+  | || | | | '_ \| | '_ \ / _` |   | |/ _ \/ __| __|
+  | || |_| | |_) | | | | | (_| |   | |  __/\__ \ |_
+  |_| \__, | .__/|_|_| |_|\__, |   |_|\___||___/\__|
+      |___/|_|            |___/
+            ''')
+    stdscr.addstr("\nPress any key to begin!")
+    stdscr.refresh()
+    stdscr.getkey()
 
 def display_text(stdscr, target, current, wpm=0):
 	stdscr.addstr(target)
@@ -63,17 +70,18 @@ def wpm_test(stdscr):
 
 
 def main(stdscr):
-	curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
-	curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
-	curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
+    curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
+    curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
+    curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
 
-	start_screen(stdscr)
-	while True:
-		wpm_test(stdscr)
-		stdscr.addstr(2, 0, "You completed the text! Press any key to continue...")
-		key = stdscr.getkey()
+    start_screen(stdscr)
+    curses.curs_set(0)
+    while True:
+        wpm_test(stdscr)
+        stdscr.addstr(2, 0, "You completed the text! Press any key to continue...")
+        key = stdscr.getkey()
 		
-		if ord(key) == 27:
-			break
+        if ord(key) == 27:
+            break
 
 wrapper(main)
