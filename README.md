@@ -6,4 +6,4 @@
 - [ ] Add sentence choosing panel
 
 ### Future ideas
-- Add a way to add a delete senteces
+- [ ] Add a way to add a delete senteces
