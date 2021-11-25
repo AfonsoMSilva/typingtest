@@ -3,7 +3,7 @@ from curses import wrapper
 import time 
 import random
 
-menu = ['Home', 'Play', 'Scoreboard', 'Exit']
+menu = ['Play', 'Options', 'Exit']
 
 
 def print_menu(stdscr, selected_row_idx):
@@ -82,7 +82,7 @@ def wpm_test(stdscr):
                 current_text.pop()
         elif len(current_text) < len(target_text):
             current_text.append(key)
-def wpm_start(stdscr, wpm_test):
+def wpm_start(stdscr):
     # when called starts the displays the wpm_test
     stdscr.clear()
     while True:
@@ -115,27 +115,10 @@ def main(stdscr):
             current_row += 1
         elif key == curses.KEY_ENTER or key in [10, 13]:
             if current_row == 0:
-               wpm_start(stdscr, wpm_test) 
-            print_center(stdscr, "You selected '{}'".format(menu[current_row]))
-            stdscr.getch()
+               wpm_start(stdscr) 
             #if user selected last row, exit the program
-            if current_row == len(menu)-1:
+            if current_row == 2:
                 break
-
         print_menu(stdscr, current_row)
-
-    curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
-    curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
-    curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
-
-    while True:
-        wpm_test(stdscr)
-        stdscr.addstr(2, 0, "You completed the text! Press any key to continue...")
-        key = stdscr.getkey()
-        
-        if ord(key) == 27:
-            break
-    
-
 
 curses.wrapper(main)
