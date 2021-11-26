@@ -4,7 +4,7 @@ import time
 import random
 
 menu = ['Play', 'Options', 'Exit']
-
+opt_menu = ['List Sentences', 'Add Sentece', 'Remove Sentece']
 
 def print_menu(stdscr, selected_row_idx):
     stdscr.clear()
@@ -20,13 +20,26 @@ def print_menu(stdscr, selected_row_idx):
             stdscr.addstr(y, x, row)
     stdscr.refresh()
 
-
 def print_center(stdscr, text):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
     x = w//2 - len(text)//2
     y = h//2
     stdscr.addstr(y, x, text)
+    stdscr.refresh()
+
+def options_menu(stdscr, sel_row_idx):
+    stdscr.clear()
+    h ,w = stdscr.getmaxyx()
+    for idx, row in enumerate(opt_menu):
+        x = w//2 - len(row)//2
+        y = h//2 - len(opt_menu)//2 + idx
+        if idx == sel_row_idx:
+            stdscr.attron(curses.color_pair(5))
+            stdscr.addstr(y, x, row)
+            stdscr.attroff(curses.color_pair(5))
+        else:
+            stdscr.addstr(y, x, row)
     stdscr.refresh()
 
 def display_text(stdscr, target, current, wpm=0):
@@ -116,9 +129,10 @@ def main(stdscr):
         elif key == curses.KEY_ENTER or key in [10, 13]:
             if current_row == 0:
                wpm_start(stdscr) 
+            if current_row == 1:
+                options_menu(stdscr, current_row)
             #if user selected last row, exit the program
             if current_row == 2:
                 break
-        print_menu(stdscr, current_row)
 
-curses.wrapper(main)
+wrapper(main)
